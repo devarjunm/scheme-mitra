@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f7f1">
+  <title>Scheme Mitra — Admin Console</title><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/admin.css"><script defer src="/admin.js"></script>
+</head>
+<body class="admin-body">
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20.5 3.5C11 3.7 5.2 5.5 4 11c-.7 3.3 1.6 6.1 4.8 6.1 5.3 0 8.9-5.5 10.2-13.6Z"/><path d="M3.5 21c2.2-5.5 6.2-8.6 12.2-11.5"/></symbol></svg>
+  <div class="admin-access hidden" id="admin-access"><div class="admin-access-card"><div class="brand-mark"><svg><use href="#i-leaf"></use></svg></div><h1>Admin access required</h1><p>Sign in with a data-verifier or administrator account. Local bootstrap and deployment steps are in the <a href="/docs/DEPLOYMENT.md">deployment guide</a>.</p><form id="admin-login-form" class="admin-login-form"><label>Email<input name="email" type="email" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button class="button button-primary" type="submit">Sign in to admin</button></form><div id="admin-access-error" class="admin-error" role="alert"></div><a class="admin-back-link" href="/">Return to Scheme Mitra</a></div></div>
+  <div id="admin-app" class="hidden">
+    <header class="admin-topbar"><a class="admin-brand" href="/"><span class="brand-mark"><svg><use href="#i-leaf"></use></svg></span><span><b>scheme<span>mitra</span></b><small>ADMIN CONSOLE</small></span></a><div class="admin-top-right"><span class="admin-session" id="admin-session"></span><a class="button button-quiet" href="/" aria-label="Return to farmer workspace">Farmer workspace ↗</a><button class="logout-button" id="admin-logout">Sign out</button></div></header>
+    <main class="admin-content">
+      <div class="admin-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span>DATA GOVERNANCE</div><h1>Scheme administration</h1><p>Source capture → human review → verification → publish. No source record is automatically published.</p></div><button class="button button-primary" id="new-scheme">＋ Add scheme</button></div>
+      <div class="admin-tabs"><button class="active" data-admin-tab="dashboard">Overview</button><button data-admin-tab="schemes">Scheme records <span id="scheme-count-pill">0</span></button><button data-admin-tab="audit">Audit & pilots</button></div>
+      <section class="admin-view active" data-admin-view="dashboard">
+        <div id="admin-metrics" class="admin-metrics"></div>
+        <div class="admin-grid"><section class="admin-panel"><div class="admin-panel-head"><div><span class="overline">WORK QUEUE</span><h2>Records needing review</h2></div><button class="text-action" data-admin-goto="schemes">View records →</button></div><div id="review-queue" class="review-queue"></div></section>
+          <section class="admin-panel"><div class="admin-panel-head"><div><span class="overline">PILOT PLANNING</span><h2>Proposed pilots</h2></div></div><div id="pilot-list" class="pilot-list"></div><form id="pilot-form" class="admin-pilot-form"><input name="name" placeholder="Pilot name" required maxlength="160"><input name="location" placeholder="Proposed location" required maxlength="160"><div class="pilot-form-row"><input name="target_users" type="number" min="0" max="100000" value="0" aria-label="Target users"><button class="button button-quiet" type="submit">Add proposed pilot</button></div><small>Saved as PROPOSED_ONLY; no partnership is implied.</small></form></section>
+        </div>
+      </section>
+      <section class="admin-view" data-admin-view="schemes">
+        <div class="admin-table-tools"><div><h2>Scheme records</h2><p>Review each source and rule summary before making it visible to farmers.</p></div><input id="scheme-admin-search" type="search" placeholder="Search scheme or department"></div>
+        <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Scheme</th><th>Source & checked</th><th>Status</th><th>Version</th><th>Actions</th></tr></thead><tbody id="scheme-table-body"></tbody></table></div>
+        <div class="admin-data-note">Seed records are demo summaries, not human-verified. Farmer-facing visibility is blocked until the review and publish workflow is complete.</div>
+      </section>
+      <section class="admin-view" data-admin-view="audit">
+        <div class="admin-grid"><section class="admin-panel"><div class="admin-panel-head"><div><span class="overline">CHANGE HISTORY</span><h2>Audit log</h2></div><button class="text-action" id="refresh-audit">Refresh</button></div><div id="audit-log-list" class="audit-list"></div></section>
+          <section class="admin-panel"><div class="admin-panel-head"><div><span class="overline">USAGE SIGNALS</span><h2>Product analytics</h2></div></div><div id="admin-analytics" class="analytics-list"></div><div class="admin-note">Usage events describe activity only. They do not measure farmer benefit, application approval, or impact.</div></section></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-scrim hidden" id="scheme-editor" role="dialog" aria-modal="true" aria-labelledby="scheme-editor-title"><section class="modal-panel admin-editor"><button class="modal-close" data-admin-close="scheme-editor" aria-label="Close">×</button><div class="modal-kicker">SCHEME CATALOG</div><h2 id="scheme-editor-title">Add scheme record</h2><p class="modal-intro">New or changed data enters the review queue. Use official facts only; unknowns should remain blank.</p>
+    <form id="scheme-form" class="admin-form">
+      <label>Slug<input name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxlength="140"></label><label>Scheme name<input name="name" required maxlength="240"></label>
+      <label>Department<input name="department" required maxlength="180"></label><label>Level<input name="level" value="State" maxlength="80"></label>
+      <label>Category<input name="category" value="General" maxlength="80"></label><label>Matching need<input name="need" placeholder="irrigation / horticulture / machinery" maxlength="64"></label>
+      <label>Icon identifier<select name="icon"><option value="leaf">Leaf</option><option value="water">Water</option><option value="tractor">Tractor</option></select></label><label>Marathi name<input name="name_mr" maxlength="240"></label>
+      <label>Source name<input name="source_name" required value="MahaDBT Farmer Portal" maxlength="160"></label><label>Source checked date<input name="source_checked_at" type="date"></label>
+      <label class="wide">Official source URL<input name="source_url" type="url" required placeholder="https://..."></label><label class="wide">Official application URL<input name="application_url" type="url" placeholder="https://..."></label>
+      <label class="wide">Summary<textarea name="summary" required minlength="10" maxlength="4000" rows="3"></textarea></label><label class="wide">Benefit summary<textarea name="benefit_summary" maxlength="2000" rows="2"></textarea></label>
+      <label class="wide">Crop tags (comma-separated)<input name="crop_tags" placeholder="onion, vegetables" maxlength="1000"></label>
+      <label class="wide">Source facts (one per line)<textarea name="source_facts" rows="3"></textarea></label>
+      <label class="wide">Eligibility checks (JSON array)<textarea name="checks" rows="5" placeholder='[{"id":"aadhaar","label":"Aadhaar required","field":"aadhaar_present","kind":"boolean"}]'></textarea></label>
+      <label class="wide">Document items (JSON array)<textarea name="document_items" rows="4" placeholder='[{"id":"land_7_12","label":"7/12 extract","stage":"Before applying","required":true}]'></textarea></label>
+      <label class="wide hidden" id="change-reason-label">Reason for this change (required)<textarea name="change_reason" minlength="4" maxlength="500" rows="2"></textarea></label>
+      <div class="wide admin-form-actions"><button type="button" class="button button-quiet" data-admin-close="scheme-editor">Cancel</button><button type="submit" class="button button-primary">Save to review queue</button></div>
+    </form>
+  </section></div>
+  <div class="modal-scrim hidden" id="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-title"><section class="modal-panel review-dialog"><button class="modal-close" data-admin-close="review-modal" aria-label="Close">×</button><div class="modal-kicker">AUDITABLE ACTION</div><h2 id="review-title">Confirm scheme action</h2><p id="review-detail" class="modal-intro"></p><form id="review-form"><label>Reason / reviewer note<textarea name="reason" required minlength="4" maxlength="500" rows="3"></textarea></label><div class="admin-form-actions"><button type="button" class="button button-quiet" data-admin-close="review-modal">Cancel</button><button class="button button-primary" type="submit">Confirm</button></div></form></section></div>
+  <div class="toast" id="admin-toast" role="status" aria-live="polite"></div>
+</body></html>

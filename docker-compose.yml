@@ -1,0 +1,62 @@
+# Local development stack only. Do not deploy these development passwords/settings.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: scheme_mitra
+      POSTGRES_USER: scheme_mitra
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-scheme_mitra_local_only}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scheme_mitra -d scheme_mitra"]
+      interval: 5s
+      timeout: 4s
+      retries: 15
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "128mb", "--maxmemory-policy", "noeviction"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    restart: unless-stopped
+
+  app:
+    build: .
+    command: ["sh", "-c", "python -m alembic upgrade head && exec python run.py"]
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      APP_ENV: development
+      DATABASE_URL: postgresql+psycopg://scheme_mitra:${POSTGRES_PASSWORD:-scheme_mitra_local_only}@db:5432/scheme_mitra
+      RATE_LIMIT_REDIS_URL: redis://redis:6379/0
+      DEMO_MODE: "true"
+      SEED_SCHEMES: "true"
+      COOKIE_SECURE: "false"
+      COOKIE_SAMESITE: strict
+      JWT_SECRET: ${JWT_SECRET:-local-only-not-for-deployment-change-this-secret-now}
+      TRUSTED_HOSTS: "${TRUSTED_HOSTS:-*}"
+      FORWARDED_ALLOW_IPS: "127.0.0.1,::1"
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      HOST: 0.0.0.0
+      PORT: 8080
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/ready', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      start_period: 45s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

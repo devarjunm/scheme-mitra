@@ -1,0 +1,120 @@
+[
+  {
+    "slug": "pmksy-micro-irrigation",
+    "name": "PMKSY — Per Drop More Crop (Micro-irrigation)",
+    "name_mr": "प्रधानमंत्री कृषी सिंचन योजना — प्रती थेंब अधिक पिक (सूक्ष्म सिंचन घटक)",
+    "department": "Agriculture Department, Government of Maharashtra",
+    "level": "State portal / Central scheme component",
+    "category": "Irrigation",
+    "icon": "water",
+    "need": "irrigation",
+    "crop_tags": ["*"],
+    "summary": "The MahaDBT page describes support for drip and sprinkler micro-irrigation. The page states assistance shares of 55% for small and marginal farmers and 45% for other farmers, subject to the scheme's current component rules and approval.",
+    "benefit_summary": "Official page states 55% for small/marginal farmers and 45% for other farmers. This is not a guaranteed amount; eligible equipment, area limits, prior-benefit rules and approval apply.",
+    "source_name": "MahaDBT Farmer Portal",
+    "source_url": "https://mahadbt.maharashtra.gov.in/Farmer/SchemeData/SchemeData?str=E9DDFA703C38E51AC7B56240D6D84F28",
+    "application_url": "https://mahadbt.maharashtra.gov.in/Farmer/Login/Login",
+    "source_checked_at": "2026-10-07",
+    "data_status": "DEMO_SOURCE_CAPTURED_NEEDS_HUMAN_SIGNOFF",
+    "source_facts": [
+      "The page lists Aadhaar, 7/12 and 8-A records as eligibility requirements; a caste certificate is required for SC/ST applicants.",
+      "The page describes a 5-hectare benefit limit.",
+      "For an electric water pump, the page requires a permanent electricity connection and a recent electricity bill.",
+      "The page describes a 7- or 10-year restriction for repeat benefits on a survey number, depending on when the previous benefit was received.",
+      "After prior approval, the farmer must buy an eligible micro-irrigation set from an authorized seller, install it, and upload the bill within 30 days.",
+      "Documents listed on the page: 7/12, 8-A, electricity bill, purchase invoice and prior-consent letter."
+    ],
+    "document_items": [
+      {"id": "land_7_12", "label": "7/12 extract", "stage": "Before applying", "required": true},
+      {"id": "land_8a", "label": "8-A extract", "stage": "Before applying", "required": true},
+      {"id": "electricity_bill", "label": "Recent electricity bill (if using an electric water pump)", "stage": "Before applying when applicable", "required": true},
+      {"id": "purchase_invoice", "label": "Invoice for the approved micro-irrigation set", "stage": "After prior approval; upload within the period stated on the official page", "required": true},
+      {"id": "prior_consent", "label": "Prior-consent / approval letter", "stage": "Issued through the government process", "required": true}
+    ],
+    "checks": [
+      {"id": "aadhaar", "label": "Aadhaar requirement", "field": "aadhaar_present", "kind": "boolean"},
+      {"id": "land_7_12", "label": "7/12 record", "field": "documents.land_7_12", "kind": "document"},
+      {"id": "land_8a", "label": "8-A record", "field": "documents.land_8a", "kind": "document"},
+      {"id": "area_limit", "label": "Area limit stated on source page (up to 5 ha)", "field": "land_area_acres", "kind": "area_cap", "value": 12.3553},
+      {"id": "electricity", "label": "Permanent electricity connection for an electric water pump", "field": "permanent_electric_connection", "kind": "conditional_boolean"},
+      {"id": "prior_benefit", "label": "Prior benefit on this survey number (time restriction applies)", "field": "prior_micro_benefit_year", "kind": "history"}
+    ]
+  },
+  {
+    "slug": "mission-integrated-horticulture-development",
+    "name": "Mission for Integrated Development of Horticulture (MIDH)",
+    "name_mr": "एकात्मिक फलोत्पादन विकास अभियान",
+    "department": "Agriculture Department, Government of Maharashtra",
+    "level": "State portal / Central mission components",
+    "category": "Horticulture",
+    "icon": "leaf",
+    "need": "horticulture",
+    "crop_tags": ["onion", "vegetables", "horticulture"],
+    "summary": "The MahaDBT page lists horticulture components including vegetable development, horticulture mechanization, protected cultivation and post-harvest activities. It also lists onion-storage infrastructure under post-harvest management. The applicable component must be selected and checked on the official portal.",
+    "benefit_summary": "The official page lists multiple activity-specific assistance components. This demo does not reproduce a component-specific amount; check the current official benefit schedule before acting.",
+    "source_name": "MahaDBT Farmer Portal",
+    "source_url": "https://mahadbt.maharashtra.gov.in/Farmer/SchemeData/SchemeData?str=E9DDFA703C38E51AF823840F3424F82E",
+    "application_url": "https://mahadbt.maharashtra.gov.in/Farmer/Login/Login",
+    "source_checked_at": "2026-10-07",
+    "data_status": "DEMO_SOURCE_CAPTURED_NEEDS_HUMAN_SIGNOFF",
+    "source_facts": [
+      "The page requires Aadhaar, 7/12 and 8-A records; an SC/ST certificate is required for applicants in those categories.",
+      "The page states that the farmer or farmer group must have horticulture crops.",
+      "The listed documents include 7/12, 8-A, an SC/ST certificate where applicable, and a quotation or bill for the item/equipment.",
+      "The page lists many distinct components; conditions vary by component."
+    ],
+    "document_items": [
+      {"id": "land_7_12", "label": "7/12 extract", "stage": "Before applying", "required": true},
+      {"id": "land_8a", "label": "8-A extract", "stage": "Before applying", "required": true},
+      {"id": "caste_certificate", "label": "SC/ST certificate (if applicable)", "stage": "If applicable", "required": true},
+      {"id": "equipment_quote", "label": "Quotation or bill for the selected item/equipment", "stage": "Depends on selected component", "required": true}
+    ],
+    "checks": [
+      {"id": "aadhaar", "label": "Aadhaar requirement", "field": "aadhaar_present", "kind": "boolean"},
+      {"id": "land_7_12", "label": "7/12 record", "field": "documents.land_7_12", "kind": "document"},
+      {"id": "land_8a", "label": "8-A record", "field": "documents.land_8a", "kind": "document"},
+      {"id": "horticulture_crop", "label": "Horticulture crop / relevant component", "field": "crop", "kind": "crop_tag", "value": ["onion", "vegetables", "horticulture"]},
+      {"id": "social_certificate", "label": "SC/ST certificate (if applicable)", "field": "social_category", "kind": "conditional_category"},
+      {"id": "component", "label": "Selected activity and component-specific conditions", "field": "selected_component", "kind": "unknown"}
+    ]
+  },
+  {
+    "slug": "state-agriculture-mechanization",
+    "name": "State Agriculture Mechanization Scheme",
+    "name_mr": "राज्य कृषी यांत्रिकीकरण योजना",
+    "department": "Agriculture Department, Government of Maharashtra",
+    "level": "State",
+    "category": "Farm machinery",
+    "icon": "tractor",
+    "need": "machinery",
+    "crop_tags": ["*"],
+    "summary": "The MahaDBT page describes support for listed farm machinery and implements, including tractors, power tillers, equipment and post-harvest machinery. A farmer can receive support for one listed implement; repeat-benefit restrictions apply to the same implement.",
+    "benefit_summary": "Financial assistance is listed for specified machinery and implements. Amounts vary by item and official benefit schedule; no amount is shown in this demo.",
+    "source_name": "MahaDBT Farmer Portal",
+    "source_url": "https://mahadbt.maharashtra.gov.in/Farmer/SchemeData/SchemeData?str=E9DDFA703C38E51A147B39AD4D6A9082",
+    "application_url": "https://mahadbt.maharashtra.gov.in/Farmer/Login/Login",
+    "source_checked_at": "2026-10-07",
+    "data_status": "DEMO_SOURCE_CAPTURED_NEEDS_HUMAN_SIGNOFF",
+    "source_facts": [
+      "The page lists Aadhaar and 7/12 and 8-A records as requirements; a caste certificate is required for SC/ST applicants.",
+      "The page lists machinery/implements such as tractors, power tillers, operated equipment, processing sets and post-harvest technology.",
+      "The page states that support is payable for one implement; a 10-year restriction applies to another benefit for the same implement.",
+      "The page lists quotation and inspection information, self-declaration and prior-consent as required documents."
+    ],
+    "document_items": [
+      {"id": "land_7_12", "label": "7/12 extract", "stage": "Before applying", "required": true},
+      {"id": "land_8a", "label": "8-A extract", "stage": "Before applying", "required": true},
+      {"id": "equipment_quote", "label": "Quotation and approved inspection report for the selected implement", "stage": "Before applying", "required": true},
+      {"id": "self_declaration", "label": "Self-declaration", "stage": "As listed on the official page", "required": true},
+      {"id": "prior_consent", "label": "Prior-consent letter", "stage": "Government process", "required": true}
+    ],
+    "checks": [
+      {"id": "aadhaar", "label": "Aadhaar requirement", "field": "aadhaar_present", "kind": "boolean"},
+      {"id": "land_7_12", "label": "7/12 record", "field": "documents.land_7_12", "kind": "document"},
+      {"id": "land_8a", "label": "8-A record", "field": "documents.land_8a", "kind": "document"},
+      {"id": "social_certificate", "label": "SC/ST certificate (if applicable)", "field": "social_category", "kind": "conditional_category"},
+      {"id": "selected_item", "label": "Selected eligible machinery/implement", "field": "selected_machinery", "kind": "unknown"},
+      {"id": "prior_benefit", "label": "Prior benefit for the same implement (10-year restriction)", "field": "previous_same_machinery_year", "kind": "history"}
+    ]
+  }
+]

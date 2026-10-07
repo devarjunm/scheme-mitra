@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f1">
+  <meta name="description" content="Scheme Mitra helps farmers understand scheme fit, documents and next steps from official sources.">
+  <title>Scheme Mitra — Your schemes. Your next step.</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <svg class="icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20.5 3.5C11 3.7 5.2 5.5 4 11c-.7 3.3 1.6 6.1 4.8 6.1 5.3 0 8.9-5.5 10.2-13.6Z"/><path d="M3.5 21c2.2-5.5 6.2-8.6 12.2-11.5"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-3.6L6 21Z"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M9 5.5V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5M8 11h8M8 15h8"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V5M4 19h17"/><path d="m7 15 4-4 3 2 5-6"/><circle cx="19" cy="7" r="1"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.4 1.6c-.9 1-2 1.1-2 2.6M12 17.2h.01"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></symbol>
+    <symbol id="i-water" viewBox="0 0 24 24"><path d="M12 3c-2.4 3.5-6 7-6 11a6 6 0 0 0 12 0c0-4-3.6-7.5-6-11Z"/><path d="M9.5 15.5a2.5 2.5 0 0 0 2.5 2"/></symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21v-9M12 15c-5 0-8-2.5-8-7 4.5 0 8 2 8 7ZM12 12c0-4 2.5-7 7-8 0 4.5-2.5 8-7 8Z"/></symbol>
+    <symbol id="i-tractor" viewBox="0 0 24 24"><path d="M3 15h12l3 3H5l-2-3Z"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/><path d="M6 15V9h7l2 6M13 9l1-3h4l2 6M16 6V4h3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4L12 3Z"/><path d="M12 9v5M12 17.5h.01"/></symbol>
+  </svg>
+
+  <section class="auth-gate hidden" id="auth-gate" aria-labelledby="auth-title">
+    <div class="auth-shell">
+      <div class="auth-brand"><span class="brand-mark"><svg><use href="#i-leaf"></use></svg></span><div><strong>scheme<span>mitra</span></strong><small data-i18n="taglineShort">A clearer next step</small></div></div>
+      <div class="auth-card">
+        <div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="secureAccess">SECURE FARMER ACCESS</span></div>
+        <h1 id="auth-title" data-i18n="authWelcome">Welcome to Scheme Mitra</h1>
+        <p class="auth-intro" data-i18n="authIntro">Sign in to save your farm profile and scheme shortlist.</p>
+        <div class="auth-tabs"><button class="active" data-auth-tab="login" data-i18n="signIn">Sign in</button><button data-auth-tab="register" data-i18n="createAccount">Create account</button></div>
+        <form id="login-form" class="auth-form">
+          <label><span data-i18n="emailLabel">Email</span><input name="email" type="email" autocomplete="username" required maxlength="254"></label>
+          <label><span data-i18n="passwordLabel">Password</span><input name="password" type="password" autocomplete="current-password" required maxlength="128"></label>
+          <button class="button button-primary" type="submit" data-i18n="signIn">Sign in</button>
+        </form>
+        <form id="register-form" class="auth-form hidden">
+          <label><span data-i18n="fullNameLabel">Full name</span><input name="full_name" autocomplete="name" required minlength="2" maxlength="100"></label>
+          <label><span data-i18n="emailLabel">Email</span><input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+          <label><span data-i18n="passwordLabel">Password (12+ characters)</span><input name="password" type="password" autocomplete="new-password" minlength="12" required maxlength="128"></label>
+          <div class="auth-row"><label><span data-i18n="districtLabel">District</span><input name="district" maxlength="100"></label><label><span data-i18n="talukaLabel">Taluka</span><input name="taluka" maxlength="100"></label></div>
+          <button class="button button-primary" type="submit" data-i18n="createAccount">Create account</button>
+        </form>
+        <div class="auth-error hidden" id="auth-error" role="alert"></div>
+        <div class="auth-divider"><span data-i18n="orTryDemo">or explore the synthetic demo</span></div>
+        <button class="button button-quiet demo-entry" id="demo-entry" type="button"><span>✦</span><span data-i18n="openDemo">Open demo farmer</span></button>
+        <p class="auth-privacy" data-i18n="authPrivacy">This demo stores account email and farm-profile data. Use test details only; never enter real Aadhaar or bank details or upload real documents.</p>
+      </div>
+      <div class="auth-footer" data-i18n="independentDemo">Independent service demo · Not a government portal</div>
+    </div>
+  </section>
+
+  <div class="app-shell hidden" id="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="Scheme Mitra home">
+        <span class="brand-mark"><svg><use href="#i-leaf"></use></svg></span>
+        <span class="brand-copy"><strong>scheme<span>mitra</span></strong><small data-i18n="taglineShort">A clearer next step</small></span>
+      </a>
+      <div class="workspace-label" data-i18n="workspace">FARMER WORKSPACE</div>
+      <nav class="nav-list">
+        <button class="nav-item active" data-page="overview"><svg><use href="#i-home"></use></svg><span data-i18n="navOverview">Overview</span></button>
+        <button class="nav-item" data-page="find"><svg><use href="#i-search"></use></svg><span data-i18n="navFind">Find schemes</span><span class="nav-count" id="nav-match-count">3</span></button>
+        <button class="nav-item" data-page="saved"><svg><use href="#i-bookmark"></use></svg><span data-i18n="navSaved">Saved schemes</span></button>
+        <button class="nav-item" data-page="applications"><svg><use href="#i-clipboard"></use></svg><span data-i18n="navApplications">Applications</span></button>
+        <button class="nav-item" data-page="pilot"><svg><use href="#i-chart"></use></svg><span data-i18n="navPilot">Pilot evidence</span></button>
+      </nav>
+      <a class="admin-nav-link hidden" id="admin-link" href="/admin.html"><span>⚙</span><span data-i18n="adminConsole">Admin console</span></a>
+      <div class="sidebar-bottom">
+        <div class="sidebar-help"><span class="help-icon"><svg><use href="#i-help"></use></svg></span><div><strong data-i18n="needHelp">Need a hand?</strong><button id="open-assistant-side" data-i18n="askAssistant">Ask Scheme Mitra</button></div></div>
+        <div class="sidebar-profile"><div class="avatar" id="sidebar-avatar">DF</div><div class="side-person"><strong id="sidebar-name">Demo Farmer</strong><span id="sidebar-place">Niphad, Nashik</span></div><span class="demo-pill">DEMO</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="crumb"><span data-i18n="crumbWorkspace">Farmer workspace</span><span class="crumb-sep">/</span><strong id="current-crumb" data-i18n="navOverview">Overview</strong></div>
+        <div class="topbar-actions">
+          <div class="language-switch" aria-label="Choose language">
+            <button data-lang="en" class="selected" aria-label="English">EN</button>
+            <button data-lang="mr" aria-label="मराठी">मरा</button>
+            <button data-lang="hi" aria-label="हिन्दी">हि</button>
+          </div>
+          <button class="assistant-top" id="open-assistant-top"><span class="assistant-spark">✦</span><span data-i18n="askAssistant">Ask Scheme Mitra</span></button>
+          <button class="logout-button" id="logout-button" data-i18n="signOut">Sign out</button>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="view active" id="view-overview" data-view="overview">
+          <div class="page-heading heading-row">
+            <div><div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="demoWorkspace">DEMO FARMER WORKSPACE</span></div><h1><span data-i18n="hello">Namaskar</span>, <span id="greeting-name">Demo Farmer</span></h1><p data-i18n="homeIntro">See scheme options that may fit your farm, with the reasons and next steps.</p></div>
+            <button class="button button-quiet" id="edit-profile-top"><svg><use href="#i-clipboard"></use></svg><span data-i18n="editProfile">Edit profile</span></button>
+          </div>
+
+          <section class="hero-banner">
+            <div class="hero-content">
+              <div class="hero-kicker"><span class="hero-spark">✦</span><span data-i18n="heroKicker">PERSONALIZED FOR YOUR FARM</span></div>
+              <h2 data-i18n="heroTitle">Find the support<br>that fits your next step.</h2>
+              <p data-i18n="heroBody">A short, explainable shortlist — built from your farm profile and official scheme pages.</p>
+              <button class="button button-light" id="hero-find"><span data-i18n="findForMe">Find schemes for me</span><svg><use href="#i-arrow"></use></svg></button>
+              <div class="hero-footnote"><span class="tiny-lock">✓</span><span data-i18n="rulesNote">Rule-based matching · No AI approval guesses</span></div>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+              <div class="art-circle"><svg><use href="#i-sprout"></use></svg></div>
+              <span class="art-leaf leaf-a">✦</span><span class="art-leaf leaf-b">✧</span>
+              <div class="art-label"><span class="art-check">✓</span><span><b data-i18n="sourceBacked">Source-backed</b><small data-i18n="explainable">and explainable</small></span></div>
+            </div>
+          </section>
+
+          <div class="overview-grid">
+            <section class="surface profile-snapshot">
+              <div class="surface-head"><div><span class="overline" data-i18n="yourFarm">YOUR FARM PROFILE</span><h3 data-i18n="profileCompleteness">Profile completeness</h3></div><button class="text-action" id="edit-profile-link" data-i18n="completeProfile">Complete profile <span>→</span></button></div>
+              <div class="completion-row"><div class="progress-ring" id="profile-ring"><span id="profile-percent">90%</span></div><div class="completion-copy"><strong><span id="profile-complete-count">9</span> <span data-i18n="ofProfile">of 10 details added</span></strong><p id="missing-profile-copy" data-i18n="profileMissingDefault">Add your village to make local matching clearer.</p></div></div>
+              <div class="profile-facts" id="profile-facts"></div>
+            </section>
+            <section class="surface next-step-card">
+              <div class="next-step-top"><span class="next-step-icon"><svg><use href="#i-water"></use></svg></span><span class="tag tag-amber" data-i18n="nextStep">NEXT STEP</span></div>
+              <h3 data-i18n="nextStepTitle">Check your irrigation documents</h3>
+              <p data-i18n="nextStepBody">Your profile points to micro-irrigation support. Confirm the pump connection and review the source checklist.</p>
+              <div class="mini-doc-row"><span class="mini-doc-ok">✓</span><span data-i18n="twoLandRecords">7/12 and 8-A marked available</span><b>2/5</b></div>
+              <button class="text-action" id="open-micro-detail" data-i18n="seeChecklist">See document checklist <span>→</span></button>
+            </section>
+          </div>
+
+          <div class="section-title-row"><div><span class="overline" data-i18n="basedOnProfile">BASED ON YOUR PROFILE</span><h2 data-i18n="pathsTitle">A few paths to explore</h2></div><button class="text-action" id="view-all-schemes" data-i18n="viewAll">View all <span>→</span></button></div>
+          <div class="scheme-grid scheme-grid-home" id="home-recommendations"></div>
+          <div class="trust-strip"><span class="trust-icon"><svg><use href="#i-alert"></use></svg></span><div><strong data-i18n="trustTitle">Guidance, not a government decision</strong><p data-i18n="trustBody">Scheme Mitra explains a profile match. Final eligibility and approval are decided by the concerned department.</p></div><span class="source-date" data-i18n="sourceReview">Source pages checked 07 Oct 2026</span></div>
+        </section>
+
+        <section class="view" id="view-find" data-view="find">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="findEyebrow">SCHEME DISCOVERY</span></div><h1 data-i18n="findTitle">Matches for your farm</h1><p data-i18n="findIntro">Ranked by profile fit. Open any result to see the rule checks and what still needs confirmation.</p></div></div>
+          <div class="find-tools surface">
+            <label class="searchbox"><svg><use href="#i-search"></use></svg><input id="scheme-search" type="search" placeholder="Search crop, benefit or scheme" data-i18n-placeholder="searchPlaceholder" autocomplete="off"></label>
+            <div class="filter-chips" role="group" aria-label="Filter by category">
+              <button class="filter-chip active" data-filter="all" data-i18n="filterAll">All schemes</button>
+              <button class="filter-chip" data-filter="Irrigation" data-i18n="filterIrrigation">Irrigation</button>
+              <button class="filter-chip" data-filter="Horticulture" data-i18n="filterHorticulture">Horticulture</button>
+              <button class="filter-chip" data-filter="Farm machinery" data-i18n="filterMachinery">Machinery</button>
+            </div>
+          </div>
+          <div class="result-heading"><div><strong id="results-count">3</strong> <span data-i18n="resultText">scheme pathways in this demo catalog</span><small id="result-profile-note"></small></div><span class="profile-match-key"><span class="score-dot"></span><span data-i18n="matchKey">Profile match ≠ approval probability</span></span></div>
+          <div class="scheme-list" id="scheme-results"></div>
+          <div class="feedback-strip" id="recommendation-feedback"><span class="feedback-face">◎</span><div><strong data-i18n="feedbackQuestion">Were these recommendations useful?</strong><small data-i18n="feedbackSub">Your response helps us check relevance. It does not change official rules.</small></div><div class="feedback-actions"><button data-feedback="true" data-i18n="yesUseful">Yes, useful</button><button data-feedback="false" data-i18n="notYet">Not yet</button></div></div>
+        </section>
+
+        <section class="view" id="view-saved" data-view="saved">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="yourShortlist">YOUR SHORTLIST</span></div><h1 data-i18n="savedTitle">Saved schemes</h1><p data-i18n="savedIntro">Keep promising options together while you confirm the details.</p></div></div>
+          <div class="scheme-list" id="saved-results"></div>
+          <div class="empty-state hidden" id="saved-empty"><span class="empty-icon"><svg><use href="#i-bookmark"></use></svg></span><h3 data-i18n="noSavedTitle">Nothing saved yet</h3><p data-i18n="noSavedBody">Save a scheme from your shortlist and it will appear here.</p><button class="button button-primary" data-goto="find" data-i18n="browseSchemes">Browse schemes</button></div>
+        </section>
+
+        <section class="view" id="view-applications" data-view="applications">
+          <div class="page-heading heading-row"><div><div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="yourRecords">YOUR RECORDS</span></div><h1 data-i18n="applicationsTitle">Application tracker</h1><p data-i18n="applicationsIntro">Record your own progress. Scheme Mitra does not receive live status from MahaDBT.</p></div><button class="button button-primary" id="add-application"><span class="button-plus">+</span><span data-i18n="addRecord">Add a record</span></button></div>
+          <div class="tracker-note"><span>ⓘ</span><div><strong data-i18n="manualTracker">Manual tracker only</strong><p data-i18n="manualTrackerBody">Every status below is entered by the farmer and is not verified by a government system.</p></div></div>
+          <div id="application-list" class="application-list"></div>
+          <div class="empty-state hidden" id="applications-empty"><span class="empty-icon"><svg><use href="#i-clipboard"></use></svg></span><h3 data-i18n="noAppsTitle">No application records</h3><p data-i18n="noAppsBody">When you apply through the official portal, you can note your own reference here.</p><button class="button button-primary" id="add-application-empty" data-i18n="addFirstRecord">Add your first record</button></div>
+        </section>
+
+        <section class="view" id="view-pilot" data-view="pilot">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="evidenceEyebrow">SEVA FIRST · FIELD EVIDENCE</span></div><h1 data-i18n="pilotTitle">Measure the service, not the story</h1><p data-i18n="pilotIntro">This panel records demo interactions and survey entries. It does not claim farmer impact.</p></div></div>
+          <div class="evidence-warning"><span class="warning-mark">!</span><p><strong data-i18n="demoEvents">Demo events only</strong><br><span data-i18n="demoEventsBody">Counts below reflect this local app database. They are not field-pilot results or representative survey data.</span></p></div>
+          <div class="metric-grid" id="pilot-metrics"></div>
+          <div class="pilot-grid">
+            <section class="surface survey-panel"><div class="surface-head"><div><span class="overline" data-i18n="captureObservation">CAPTURE AN OBSERVATION</span><h3 data-i18n="surveyTitle">Short pilot survey</h3></div><span class="tag tag-green" data-i18n="noPersonalData">No identity fields</span></div>
+              <form id="survey-form" class="form-grid">
+                <label><span data-i18n="surveyPhase">Survey phase</span><select name="phase" required><option value="baseline" data-i18n="baseline">Before using the tool</option><option value="post_use" data-i18n="postUse">After using the tool</option></select></label>
+                <label><span data-i18n="timeQuestion">Time to identify a relevant scheme (minutes)</span><input name="time_minutes" type="number" min="0" max="10000" step="0.5" placeholder="e.g. 12"></label>
+                <fieldset><legend data-i18n="relevantKnown">Could the farmer name a relevant scheme?</legend><label class="radio-line"><input type="radio" name="knows_relevant_schemes" value="yes"><span data-i18n="yes">Yes</span></label><label class="radio-line"><input type="radio" name="knows_relevant_schemes" value="no"><span data-i18n="no">No</span></label><label class="radio-line"><input type="radio" name="knows_relevant_schemes" value="skip"><span data-i18n="unsure">Not recorded</span></label></fieldset>
+                <fieldset><legend data-i18n="docsKnown">Could the farmer identify the required documents?</legend><label class="radio-line"><input type="radio" name="understands_documents" value="yes"><span data-i18n="yes">Yes</span></label><label class="radio-line"><input type="radio" name="understands_documents" value="no"><span data-i18n="no">No</span></label><label class="radio-line"><input type="radio" name="understands_documents" value="skip"><span data-i18n="unsure">Not recorded</span></label></fieldset>
+                <fieldset><legend data-i18n="nextStepKnown">Did the farmer know the next step?</legend><label class="radio-line"><input type="radio" name="knows_next_step" value="yes"><span data-i18n="yes">Yes</span></label><label class="radio-line"><input type="radio" name="knows_next_step" value="no"><span data-i18n="no">No</span></label><label class="radio-line"><input type="radio" name="knows_next_step" value="skip"><span data-i18n="unsure">Not recorded</span></label></fieldset>
+                <label class="full-field"><span data-i18n="observationNotes">Observation (optional; no names or sensitive details)</span><textarea name="comment" rows="3" maxlength="500" placeholder="What caused confusion? What helped?" data-i18n-placeholder="observationPlaceholder"></textarea></label>
+                <div class="form-footnote full-field" data-i18n="consentNote">Use only with informed consent. Enter real field results only after they are actually collected.</div>
+                <div class="full-field"><button class="button button-primary" type="submit" data-i18n="saveObservation">Save observation</button><span id="survey-success" class="inline-success hidden" data-i18n="savedObservation">Observation saved.</span></div>
+              </form>
+            </section>
+            <aside class="surface evidence-questions"><span class="overline" data-i18n="challengeReadiness">CHALLENGE READINESS</span><h3 data-i18n="evidenceNeeded">Evidence still needed</h3><ul class="checklist-list"><li><span>01</span><div><b data-i18n="fieldInterviews">Farmer interviews</b><small data-i18n="fieldInterviewsBody">Problem frequency, current process, time spent.</small></div></li><li><span>02</span><div><b data-i18n="baselinePost">Before/after baseline</b><small data-i18n="baselinePostBody">Same task, measured with real participants.</small></div></li><li><span>03</span><div><b data-i18n="ownerPilot">Department owner & pilot</b><small data-i18n="ownerPilotBody">Identify a proposed owner; do not imply a partnership.</small></div></li><li><span>04</span><div><b data-i18n="costEvidence">Cost & sustainability</b><small data-i18n="costEvidenceBody">Estimate unit costs and validate them in a pilot.</small></div></li></ul><a class="text-action" href="/docs/seva-challenge/evidence-plan.md" target="_blank" rel="noreferrer" data-i18n="openEvidencePlan">Open evidence plan <span>↗</span></a></aside>
+          </div>
+        </section>
+      </div>
+      <footer class="app-footer"><span>SCHEME MITRA · MVP DEMO</span><span data-i18n="footerSources">Official source pages checked 07 Oct 2026 · No government affiliation claimed</span><button id="footer-disclaimer" data-i18n="importantNote">Important note</button></footer>
+    </main>
+  </div>
+
+  <div class="modal-scrim hidden" id="scheme-modal" role="dialog" aria-modal="true" aria-labelledby="scheme-modal-title">
+    <section class="modal-panel modal-wide"><button class="modal-close" data-close="scheme-modal" aria-label="Close"><svg><use href="#i-close"></use></svg></button><div id="scheme-modal-content"></div></section>
+  </div>
+
+  <div class="modal-scrim hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title">
+    <section class="modal-panel modal-medium"><button class="modal-close" data-close="profile-modal" aria-label="Close"><svg><use href="#i-close"></use></svg></button>
+      <div class="modal-kicker" data-i18n="yourFarm">YOUR FARM PROFILE</div><h2 id="profile-modal-title" data-i18n="editYourProfile">Tell us about your farm</h2><p class="modal-intro" data-i18n="profilePrivacy">Only use the synthetic demo profile here. The MVP does not need Aadhaar numbers or document uploads.</p>
+      <form id="profile-form" class="form-grid">
+        <label><span data-i18n="nameLabel">Name</span><input name="name" maxlength="80"></label>
+        <label><span data-i18n="districtLabel">District</span><input name="district" maxlength="80"></label>
+        <label><span data-i18n="talukaLabel">Taluka</span><input name="taluka" maxlength="80"></label>
+        <label><span data-i18n="villageLabel">Village (optional)</span><input name="village" maxlength="100"></label>
+        <label><span data-i18n="landAreaLabel">How much land do you farm? (acres)</span><input name="land_area_acres" type="number" min="0" step="0.01"></label>
+        <label><span data-i18n="cropLabel">Main crop</span><input name="crop" maxlength="80"></label>
+        <label><span data-i18n="farmerCategory">Farm size category</span><select name="farmer_category"><option value="marginal">Marginal</option><option value="small">Small</option><option value="other">Other</option><option value="unknown">Not sure</option></select></label>
+        <label><span data-i18n="socialCategory">Social category (only when a scheme asks)</span><select name="social_category"><option value="not_provided">Prefer not to say / not needed</option><option value="open">Open</option><option value="obc">OBC</option><option value="sc">SC</option><option value="st">ST</option></select></label>
+        <label><span data-i18n="irrigationLabel">Do you have irrigation?</span><select name="irrigation"><option value="yes">Yes</option><option value="no">No</option><option value="unknown">Not sure</option></select></label>
+        <label><span data-i18n="electricPump">Do you use an electric water pump?</span><select name="electric_water_pump"><option value="unknown">Not recorded</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+        <label><span data-i18n="permanentConnection">Permanent electricity connection?</span><select name="permanent_electric_connection"><option value="unknown">Not recorded</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+        <label><span data-i18n="previousMicro">Previous micro-irrigation benefit on this plot?</span><select name="prior_micro_benefit_year"><option value="unknown">Not sure</option><option value="none">No previous benefit</option><option value="before_2016_17">Before 2016–17</option><option value="from_2017_18">2017–18 or later</option><option value="other">Other / need help</option></select></label>
+        <label class="full-field"><span data-i18n="supportNeedLabel">What support are you looking for? (choose any)</span><span class="check-options"><label><input type="checkbox" name="support_needs" value="irrigation"><span data-i18n="needIrrigation">Irrigation</span></label><label><input type="checkbox" name="support_needs" value="horticulture"><span data-i18n="needHorticulture">Horticulture</span></label><label><input type="checkbox" name="support_needs" value="machinery"><span data-i18n="needMachinery">Machinery</span></label></span></label>
+        <label class="check-row full-field"><input name="aadhaar_present" type="checkbox"><span data-i18n="aadhaarPresence">Aadhaar is available (do not enter the number)</span></label>
+        <label class="check-row full-field"><input name="land_7_12" type="checkbox"><span data-i18n="land712Available">7/12 extract marked available</span></label>
+        <label class="check-row full-field"><input name="land_8a" type="checkbox"><span data-i18n="land8aAvailable">8-A extract marked available</span></label>
+        <p class="form-footnote full-field" data-i18n="selfReportNote">Checklist states are self-reported only. Do not upload real documents or identifiers in this demo.</p>
+        <div class="full-field form-actions"><button type="button" class="button button-quiet" data-close="profile-modal" data-i18n="cancel">Cancel</button><button type="submit" class="button button-primary" data-i18n="saveProfile">Save demo profile</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-scrim hidden" id="application-modal" role="dialog" aria-modal="true" aria-labelledby="application-modal-title">
+    <section class="modal-panel modal-medium"><button class="modal-close" data-close="application-modal" aria-label="Close"><svg><use href="#i-close"></use></svg></button><div class="modal-kicker" data-i18n="manualRecord">USER-ENTERED RECORD</div><h2 id="application-modal-title" data-i18n="addApplicationTitle">Add application record</h2><p class="modal-intro" data-i18n="applicationNote">This only records what you enter. It does not submit or verify an application.</p>
+      <form id="application-form" class="form-grid">
+        <label class="full-field"><span data-i18n="schemeLabel">Scheme</span><select name="scheme_slug" id="application-scheme" required></select></label>
+        <label><span data-i18n="statusLabel">Status</span><select name="status"><option value="DRAFT">Draft</option><option value="SUBMITTED">Submitted</option><option value="UNDER_REVIEW">Under review</option><option value="DOCUMENTS_REQUIRED">Documents required</option><option value="APPROVED">Approved (user-entered)</option><option value="REJECTED">Rejected (user-entered)</option><option value="UNKNOWN">Unknown</option></select></label>
+        <label><span data-i18n="dateLabel">Application date</span><input name="applied_on" type="date"></label>
+        <label class="full-field"><span data-i18n="referenceLabel">Reference number (optional)</span><input name="reference" maxlength="100" placeholder="Do not enter Aadhaar or bank details"></label>
+        <label class="full-field"><span data-i18n="notesLabel">Notes (optional)</span><textarea name="notes" rows="3" maxlength="500"></textarea></label>
+        <div class="full-field form-actions"><button type="button" class="button button-quiet" data-close="application-modal" data-i18n="cancel">Cancel</button><button type="submit" class="button button-primary" data-i18n="saveRecord">Save record</button></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="modal-scrim hidden" id="assistant-modal" role="dialog" aria-modal="true" aria-labelledby="assistant-title">
+    <section class="modal-panel assistant-panel"><button class="modal-close" data-close="assistant-modal" aria-label="Close"><svg><use href="#i-close"></use></svg></button><div class="assistant-head"><span class="assistant-avatar">✦</span><div><div class="modal-kicker" data-i18n="groundedDemo">GROUNDED DEMO ASSISTANT</div><h2 id="assistant-title" data-i18n="assistantTitle">Ask about a scheme</h2><p data-i18n="assistantSub">Answers use the captured official scheme notes, not a live government API.</p></div></div>
+      <label class="assistant-scheme-label"><span data-i18n="askAbout">Ask about</span><select id="assistant-scheme"></select></label>
+      <div class="suggested-questions"><button data-question="Why did this scheme match my profile?" data-i18n="suggestWhy">Why did this match?</button><button data-question="What documents do I need?" data-i18n="suggestDocs">Which documents?</button><button data-question="Where do I apply?" data-i18n="suggestApply">Where do I apply?</button></div>
+      <div id="assistant-answer" class="assistant-answer hidden"></div>
+      <form id="assistant-form" class="assistant-input-row"><input name="question" type="text" maxlength="1000" placeholder="Ask a question in English..." data-i18n-placeholder="assistantPlaceholder"><button class="button button-primary" type="submit" aria-label="Send question"><svg><use href="#i-arrow"></use></svg></button></form>
+      <div class="assistant-disclaimer" data-i18n="assistantDisclaimer">If a fact is not in the source summary, the assistant will say it cannot verify it. Final decisions belong to the department.</div>
+    </section>
+  </div>
+
+  <div class="modal-scrim hidden" id="disclaimer-modal" role="dialog" aria-modal="true" aria-labelledby="disclaimer-title">
+    <section class="modal-panel modal-medium"><button class="modal-close" data-close="disclaimer-modal" aria-label="Close"><svg><use href="#i-close"></use></svg></button><div class="modal-kicker" data-i18n="importantNote">Important note</div><h2 id="disclaimer-title" data-i18n="guidanceNotDecision">Guidance, not a decision</h2><div class="prose-note"><p data-i18n="fullDisclaimer">Scheme Mitra is an independent demo. It is not part of MahaDBT or any government department. The source pages are linked and were checked on 7 October 2026; summaries need human domain review before a live pilot. A profile match is not eligibility or approval. The demo does not submit applications, verify uploaded documents, or receive official application status.</p><p data-i18n="privacyDisclaimer">This demo stores account email and farm-profile data. Use only fictional or test details. Never enter real Aadhaar or bank details or upload real documents; secure document storage and independent privacy/security review are not in place.</p></div><button class="button button-primary" data-close="disclaimer-modal" data-i18n="understood">Understood</button></section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
